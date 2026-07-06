@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# APPs já instaladas do próprio django
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -37,16 +37,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "todos.apps.TodosConfig",
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.security.SecurityMiddleware", # Security middleware - HTTPS, HSTS, etc.
+    "django.contrib.sessions.middleware.SessionMiddleware", # Session management middleware - Verifica sessão dos usuários, mantendo a sessão ativa entre requisições.
+    "django.middleware.common.CommonMiddleware", # Common middleware - Adiciona cabeçalhos HTTP comuns, como cabeçalhos de cache e redirecionamentos.
+    "django.middleware.csrf.CsrfViewMiddleware", # CSRF middleware - Protege contra ataques de CSRF
+    "django.contrib.auth.middleware.AuthenticationMiddleware", # Authentication middleware - Gerencia a autenticação dos usuários
+    "django.contrib.messages.middleware.MessageMiddleware", # Message middleware - Gerencia mensagens de sistema
+    "django.middleware.clickjacking.XFrameOptionsMiddleware", # Clickjacking middleware - Protege contra ataques de clickjacking
 ]
 
 ROOT_URLCONF = "setup.urls"
