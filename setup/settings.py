@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config, Csv
+from dj_database_url import parse as db_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure--)5%r%^4(82jj1%h%v5vbi5h0yxp1$k-j!!kf(nt+6(j)o0fwl"
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 
 # Application definition
@@ -41,13 +43,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware", # Security middleware - HTTPS, HSTS, etc.
-    "django.contrib.sessions.middleware.SessionMiddleware", # Session management middleware - Verifica sessão dos usuários, mantendo a sessão ativa entre requisições.
-    "django.middleware.common.CommonMiddleware", # Common middleware - Adiciona cabeçalhos HTTP comuns, como cabeçalhos de cache e redirecionamentos.
-    "django.middleware.csrf.CsrfViewMiddleware", # CSRF middleware - Protege contra ataques de CSRF
-    "django.contrib.auth.middleware.AuthenticationMiddleware", # Authentication middleware - Gerencia a autenticação dos usuários
-    "django.contrib.messages.middleware.MessageMiddleware", # Message middleware - Gerencia mensagens de sistema
-    "django.middleware.clickjacking.XFrameOptionsMiddleware", # Clickjacking middleware - Protege contra ataques de clickjacking
+    "django.middleware.security.SecurityMiddleware",  # Security middleware - HTTPS, HSTS, etc.
+    "django.contrib.sessions.middleware.SessionMiddleware",  # Session management middleware - Verifica sessão dos usuários, mantendo a sessão ativa entre requisições.
+    "django.middleware.common.CommonMiddleware",  # Common middleware - Adiciona cabeçalhos HTTP comuns, como cabeçalhos de cache e redirecionamentos.
+    "django.middleware.csrf.CsrfViewMiddleware",  # CSRF middleware - Protege contra ataques de CSRF
+    "django.contrib.auth.middleware.AuthenticationMiddleware",  # Authentication middleware - Gerencia a autenticação dos usuários
+    "django.contrib.messages.middleware.MessageMiddleware",  # Message middleware - Gerencia mensagens de sistema
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",  # Clickjacking middleware - Protege contra ataques de clickjacking
 ]
 
 ROOT_URLCONF = "setup.urls"
@@ -74,10 +76,9 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": config(
+        "DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3", cast=db_url
+    )
 }
 
 
