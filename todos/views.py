@@ -1,7 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Todo
 
-
-# Create your views here.
 def home(req):
     return render(req, "todos/home.html")
+
+def todo_list(req):
+    nome = "Alex"
+    todos = Todo.objects.all()
+    alunos = ["João", "Maria", "Pedro"]
+    return render(req, "todos/todo_list.html", {'nome':nome, 'alunos':alunos, "todo": todos})
+
+

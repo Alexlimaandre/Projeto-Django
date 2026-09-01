@@ -111,6 +111,56 @@
         .link-btn span {
             font-size: 0.8rem;
         }
+        .todo-btn {
+            width: 100%;
+            margin-top: 28px;
+            padding: 14px 20px;
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            background: #1c1917;
+            color: #ffffff;
+
+            border: 1px solid #1c1917;
+            border-radius: 8px;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .todo-btn:hover {
+            background: #292524;
+            border-color: #292524;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(28, 25, 23, 0.12);
+        }
+
+        .todo-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .todo-btn span {
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .todo-btn:hover span {
+            transform: translateX(3px);
+        }
     </style>
 </head>
 <body>
@@ -134,6 +184,11 @@
             <a href="https://www.linkedin.com/in/alexandrelimaandre/" target="_blank" class="link-btn">LinkedIn <span>↗</span></a>
             <a href="https://github.com/Alexlimaandre" target="_blank" class="link-btn">GitHub <span>↗</span></a>
         </nav>
+
+        <a href="{% url 'todo_list' %}" class="todo-btn">
+            <span>Ver Lista de Tarefas</span>
+            <span class="arrow">→</span>
+        </a>
     </main>
 
 </body>
