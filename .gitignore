@@ -1,5 +1,5 @@
 anotacoes_django.txt
-db.sqlite3
+*.sqlite3
 
 */__pycache__/
 *pycache/
