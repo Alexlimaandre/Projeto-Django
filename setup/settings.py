@@ -29,18 +29,27 @@ DEBUG = config("DEBUG", cast=bool, default=False)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
-
-# Application definition
-# APPs já instaladas do próprio django
-INSTALLED_APPS = [
+DJANGO_APP = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "todos.apps.TodosConfig",
 ]
+
+THIRD_PARTY_APPS = [ 
+    "crispy_forms",
+    "crispy_bootstrap5",
+]
+ 
+MY_APPS = [ 
+    "todos.apps.TodosConfig"
+]
+
+# Application definition
+# APPs já instaladas do próprio django
+INSTALLED_APPS = DJANGO_APP + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",  # Security middleware - HTTPS, HSTS, etc.
@@ -117,3 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
