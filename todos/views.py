@@ -42,8 +42,9 @@ class TodoCompleteView(View):
         # modulo para buscar o objeto do banco de dados, caso não exista, retorna um erro 404
         todo =get_object_or_404(Todo, pk=pk)
         # marcar a tarefa como concluída, basta alterar o campo finished_at para a data atual e salvar o objeto no banco de dados
-        todo.finished_at = datetime.now()
+         #- todo.finished_at = datetime.now()
         # salvar o objeto no banco de dados
-        todo.save()
+         #- todo.save()
         # redirecionar o usuário para a página de listagem de tarefas
+        todo.mark_as_finished()
         return redirect("todo_list")
