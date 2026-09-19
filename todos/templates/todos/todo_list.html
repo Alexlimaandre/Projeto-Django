@@ -3,35 +3,49 @@
 {% block page_title %}
     Lista de Tarefas
 {% endblock page_title %}
-    
+
 {% block content %}
-    <h1>Lista de Tarefas</h1>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="{% url 'todo_create'%}" class="btn btn-primary">Cadastrar Tarefa</a>
+    <div class="page-header">
+        <div>
+            <h1>Lista de Tarefas</h1>
+            <p class="page-subtitle">{{ todo|length }} tarefa{{ todo|length|pluralize }} cadastrada{{ todo|length|pluralize }}</p>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'todo_create'%}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Cadastrar Tarefa</a>
+        </div>
     </div>
     {% if todo %}
-        <table class="table table-striped">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Título</th>
-            <th scope="col">Criação</th>
-            <th scope="col">Data entrega</th>
-            <th scope="col">Finalizado</th>
-            <th scope="col">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
+        <ul class="task-list">
             {% for todo in todo %}
-                <tr>
-                    <th scope="row">{{ todo.id }}</th>
-                    <td>{{todo.title}}</td>
-                    <td>{{todo.created_at}}</td>
-                    <td>{{todo.deadline}}</td>
-                    <td>{{todo.finished_at|default:"Não"}}</td>
-                    <td>
+                <li class="task-card {% if todo.finished_at %}is-done{% endif %}">
+                    <div class="task-body">
+                        <div class="task-top">
+                            <span class="task-id">#{{ todo.id }}</span>
+                            {% if todo.finished_at %}
+                                <span class="status-badge status-done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>Concluída</span>
+                            {% else %}
+                                <span class="status-badge status-pending"><i class="bi bi-hourglass-split" aria-hidden="true"></i>Pendente</span>
+                            {% endif %}
+                        </div>
+                        <h2 class="task-title">{{ todo.title }}</h2>
+                        <dl class="task-meta">
+                            <div>
+                                <dt><i class="bi bi-calendar-plus" aria-hidden="true"></i>Criação</dt>
+                                <dd>{{ todo.created_at|date:"d/m/Y H:i" }}</dd>
+                            </div>
+                            <div>
+                                <dt><i class="bi bi-flag" aria-hidden="true"></i>Data entrega</dt>
+                                <dd>{{ todo.deadline|date:"d/m/Y" }}</dd>
+                            </div>
+                            <div>
+                                <dt><i class="bi bi-check2-all" aria-hidden="true"></i>Finalizado</dt>
+                                <dd>{{ todo.finished_at|date:"d/m/Y"|default:"Não" }}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="task-actions">
                         <a href="{% url 'todo_update' todo.pk %}"
-                         class="btn btn-primary btn-sm {% if todo.finished_at %}disabled{% endif %}" 
+                         class="btn btn-primary btn-sm {% if todo.finished_at %}disabled{% endif %}"
                          title="Editar tarefa">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
@@ -41,16 +55,14 @@
                           <i class="bi bi-check-lg"></i>
                         </a>
                         <a href="{% url "todo_delete" todo.pk %}" class="btn btn-danger btn-sm" title="Excluir tarefa"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                </tr>
+                    </div>
+                </li>
             {% endfor %}
-        </tbody>
-    </table>
+        </ul>
     {% else %}
-        <p>Nenhuma tarefa encontrada.</p>
+        <div class="empty-state">
+            <i class="bi bi-journal-check" aria-hidden="true"></i>
+            <p>Nenhuma tarefa encontrada.</p>
+        </div>
     {% endif %}
 {% endblock content %}
-
-
-
-

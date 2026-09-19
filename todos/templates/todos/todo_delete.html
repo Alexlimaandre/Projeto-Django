@@ -5,11 +5,13 @@
 {% endblock page_title %}
 
 {% block content %}
-  <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
-    <div class="card shadow text-center" style="max-width: 420px; width: 100%;">
-      <div class="card-body p-4">
+  <div class="confirm-wrap">
+    <div class="card shadow text-center confirm-card">
+      <div class="card-body p-4 p-md-5">
+        <span class="confirm-icon"><i class="bi bi-trash3-fill" aria-hidden="true"></i></span>
         <h1 class="h4 card-title">Excluir Tarefa</h1>
         <p class="card-text">Tem certeza que deseja excluir a tarefa "<strong>{{ object.title }}</strong>"?</p>
+        <p class="confirm-warning">Esta ação não poderá ser desfeita.</p>
 
         <form method="POST" class="d-flex justify-content-center gap-2">
           {% csrf_token %}

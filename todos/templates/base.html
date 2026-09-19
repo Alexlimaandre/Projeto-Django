@@ -4,24 +4,42 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block page_title %}TW Todos{% endblock page_title %}</title>
+    <title>{% block page_title %}To-Do List{% endblock page_title %}</title>
     <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
+    <script src="{% static 'js/theme.js' %}"></script>
   </head>
-  <body>
+  <body class="app-body">
     <nav class="navbar bg-dark" data-bs-theme="dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "todo_list" %}">TW Todos</a>
+      <div class="container-fluid app-nav">
+        <a class="navbar-brand" href="{% url "todo_list" %}"><i class="bi bi-check2-square brand-icon" aria-hidden="true"></i>To-Do List</a>
+        <div class="app-nav-links">
+          <a class="app-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Início</a>
+          <a class="app-nav-link {% if request.resolver_match.url_name == 'todo_list' %}active{% endif %}" href="{% url 'todo_list' %}">Tarefas</a>
+        </div>
+        <button type="button" class="theme-toggle" aria-label="Alternar entre tema claro e escuro">
+          <i class="bi bi-moon-stars-fill icon-moon" aria-hidden="true"></i>
+          <i class="bi bi-sun-fill icon-sun" aria-hidden="true"></i>
+        </button>
       </div>
     </nav>
 
-    <main class="container mt-4">
+    <main class="container mt-4 app-main">
         {% block content %}{% endblock content %}
     </main>
+
+    <footer class="app-footer">
+      <span>To-Do List</span>
+      <span class="footer-dot" aria-hidden="true"></span>
+      <span>Organize suas tarefas com elegância</span>
+    </footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
-!

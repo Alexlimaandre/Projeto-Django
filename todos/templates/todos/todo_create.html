@@ -13,25 +13,45 @@
 {% endblock page_title %}
 
 {% block content %}
-    </form>
-    {% if not todo.pk %}
-      <h1>Criar Tarefa</h1>
-    {% else %}
-      <h1>Atualizar Tarefa</h1>
-    {% endif %}
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="{% url 'todo_list' %}" class="btn btn-primary me-md-2">Voltar</a>
-        </div>
-        <form method="POST">
-          {% csrf_token %}
-          {{ form|crispy }}
+    <div class="page-header">
+      <div>
+        {% if not todo.pk %}
+          <h1>Criar Tarefa</h1>
+          <p class="page-subtitle">Preencha os campos para cadastrar uma nova tarefa.</p>
+        {% else %}
+          <h1>Atualizar Tarefa</h1>
+          <p class="page-subtitle">Altere os dados da tarefa e salve.</p>
+        {% endif %}
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'todo_list' %}" class="btn btn-primary btn-back"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Voltar</a>
+      </div>
+    </div>
 
+    <div class="form-card">
+      <div class="form-card-head">
+        <span class="form-card-icon">
+          {% if not todo.pk %}<i class="bi bi-plus-lg" aria-hidden="true"></i>{% else %}<i class="bi bi-pencil-fill" aria-hidden="true"></i>{% endif %}
+        </span>
+        <div>
+          <h2 class="form-card-title">{% if not todo.pk %}Nova tarefa{% else %}Editar tarefa{% endif %}</h2>
+          <p class="form-card-hint">Campos marcados com * são obrigatórios.</p>
+        </div>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="form-actions">
+          <a href="{% url 'todo_list' %}" class="btn btn-secondary">Cancelar</a>
           {% comment %} {% if request.resolver_match.url_name == 'todo_create' %} {% endcomment %}
           {% if not todo.pk %}
             <button type="submit" class="btn btn-primary">Adicionar</button>
           {% else %}
             <button type="submit" class="btn btn-primary">Atualizar</button>
           {% endif %}
-
-        </form>
+        </div>
+      </form>
+    </div>
 {% endblock content %}
