@@ -3,12 +3,22 @@
 {% load crispy_forms_tags %}
 
 {% block page_title %}
-    Criar - Tarefa
+
+    {% comment %} {% if request.resolver_match.url_name == 'todo_create' %} {% endcomment %}
+    {% if not todo.pk %}
+      Criar - Tarefa
+    {% else %}
+      Atualizar - Tarefa
+    {% endif %}
 {% endblock page_title %}
 
 {% block content %}
     </form>
-    <h1>Criar Tarefa</h1>
+    {% if not todo.pk %}
+      <h1>Criar Tarefa</h1>
+    {% else %}
+      <h1>Atualizar Tarefa</h1>
+    {% endif %}
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <a href="{% url 'todo_list' %}" class="btn btn-primary me-md-2">Voltar</a>
         </div>
@@ -16,6 +26,12 @@
           {% csrf_token %}
           {{ form|crispy }}
 
-          <button type="submit" class="btn btn-primary">Adicionar</button>
+          {% comment %} {% if request.resolver_match.url_name == 'todo_create' %} {% endcomment %}
+          {% if not todo.pk %}
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+          {% else %}
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+          {% endif %}
+
         </form>
 {% endblock content %}

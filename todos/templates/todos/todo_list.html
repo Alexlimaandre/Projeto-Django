@@ -28,10 +28,11 @@
                     <td>{{todo.title}}</td>
                     <td>{{todo.created_at}}</td>
                     <td>{{todo.deadline}}</td>
-                    <td>{{todo.finished_at|yesno:"Sim,Não"}}</td>
+                    <td>{{todo.finished_at|default:"Não"}}</td>
                     <td>
-                        <a href="#" class="btn btn-success btn-sm">Editar</a>
-                        <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+                        <a href="{% url 'todo_update' todo.pk %}" class="btn btn-primary btn-sm" title="Editar tarefa"><i class="bi bi-pencil-fill"></i></a>
+                        <a href="{% url "todo_delete" todo.pk %}" class="btn btn-danger btn-sm" title="Excluir tarefa"><i class="bi bi-trash-fill"></i></a>
+                        <a href="{% url "todo_complete" todo.pk %}" class="btn btn-success btn-sm" title="Concluír a tarefa"><i class="bi bi-check-lg"></i></a>
                     </td>
                 </tr>
             {% endfor %}

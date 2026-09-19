@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Excluir - Tarefa
+{% endblock page_title %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="card shadow text-center" style="max-width: 420px; width: 100%;">
+      <div class="card-body p-4">
+        <h1 class="h4 card-title">Excluir Tarefa</h1>
+        <p class="card-text">Tem certeza que deseja excluir a tarefa "<strong>{{ object.title }}</strong>"?</p>
+
+        <form method="POST" class="d-flex justify-content-center gap-2">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Sim, excluir</button>
+          <a href="{% url 'todo_list' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
